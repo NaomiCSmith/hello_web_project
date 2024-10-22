@@ -72,8 +72,7 @@ def submit():
 # Request:
 # GET /wave?name=Leo
 #  with body paremeter: name=Leo
-# Expected response (200 OK):
-# I am waving at Leo
+# Expected response (200 OK): I am waving at Leo
 
 @app.route('/wave', methods=['GET'])
 def wave():
@@ -96,6 +95,23 @@ def count_vowels():
         if letter in 'aeiouAEIOU':
             vowel_count += 1
     return f'There are {vowel_count} vowels in "{text}"'
+
+# to post, run:
+# curl -X POST -d "text=moodswings" http://localhost:5001/count_vowels
+
+
+# Request:
+# POST http://localhost:5001/sort_names
+#   With body parameters: names=Joe,Alice,Zoe,Julia,Kieran
+# Expected response (sorted list of names): Alice,Joe,Julia,Kieran,Zoe
+
+@app.route('/sort_names', methods=['POST'])
+def sort_names():
+    names = request.form['names']
+    name_list = names.split(',')
+    sorted_names = sorted(name_list)
+    return ",".join(sorted_names)
+
 
 
 # These lines start the server if you run this file directly

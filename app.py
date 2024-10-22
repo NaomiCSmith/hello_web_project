@@ -84,6 +84,19 @@ def wave():
 # curl -X POST -d "name=Leo" http://localhost:5001/wave
 
 
+# Request:
+# POST /count_vowels
+#   with body parameter: text=word
+
+@app.route('/count_vowels', methods=["POST"])
+def count_vowels():
+    text = request.form['text']
+    vowel_count = 0
+    for letter in text:
+        if letter in 'aeiouAEIOU':
+            vowel_count += 1
+    return f'There are {vowel_count} vowels in "{text}"'
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

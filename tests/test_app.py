@@ -76,6 +76,24 @@ def test_post_count_vowels_mercurial(web_client):
 
 
 
+# Request:
+# POST http://localhost:5001/sort-names
+#   With body parameters: names=Joe,Alice,Zoe,Julia,Kieran
+# Expected response (sorted list of names): Alice,Joe,Julia,Kieran,Zoe
+
+
+
+""""
+When: I make a POST request to /sort_names
+And: I send a list of names as the body parameter text
+Then: I should get a 200 response with the names ordered asc alphabetically
+"""
+
+def test_post_sort_names(web_client):
+    response = web_client.post('/sort_names', data={'names': 'Joe,Alice,Zoe,Julia,Kieran'})
+    assert response.status_code  == 200
+    assert response.data.decode('utf-8') == 'Alice,Joe,Julia,Kieran,Zoe'
+
 
 
 # To run these tests (ensure your virtual environment is active first):

@@ -112,6 +112,15 @@ def sort_names():
     sorted_names = sorted(name_list)
     return ",".join(sorted_names)
 
+# Request:
+# GET /add_names?add=Eddie
+# This route should return a list of pre-defined names, plus the name given.
+# Expected response (2OO OK): Julia, Alice, Karim, Eddie
+
+@app.route('/add_names', methods=['GET'])
+def add_names():
+    name = request.args['name']
+    return f"Julia, Alice, Karim, {name}"
 
 
 # These lines start the server if you run this file directly

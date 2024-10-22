@@ -14,7 +14,7 @@ def test_get_emoji(web_client):
 
 
 """
-When: I make a GET request to /
+When: I make a GET request to /wave
 Then: I should get a 200 response
 """
 def test_get_wave(web_client):
@@ -75,15 +75,7 @@ def test_post_count_vowels_mercurial(web_client):
     assert response.data.decode('utf-8') == 'There are 4 vowels in "mercurial"'
 
 
-
-# Request:
-# POST http://localhost:5001/sort-names
-#   With body parameters: names=Joe,Alice,Zoe,Julia,Kieran
-# Expected response (sorted list of names): Alice,Joe,Julia,Kieran,Zoe
-
-
-
-""""
+"""
 When: I make a POST request to /sort_names
 And: I send a list of names as the body parameter text
 Then: I should get a 200 response with the names ordered asc alphabetically
@@ -93,6 +85,24 @@ def test_post_sort_names(web_client):
     response = web_client.post('/sort_names', data={'names': 'Joe,Alice,Zoe,Julia,Kieran'})
     assert response.status_code  == 200
     assert response.data.decode('utf-8') == 'Alice,Joe,Julia,Kieran,Zoe'
+
+
+"""
+When: I make a GET request to /add_names
+Then: I should get a 200 reponse and a list of names with the new name added on
+"""
+
+def test_get_add_names(web_client):
+    response = web_client.get('/add_names?name=Eddie')
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'Julia, Alice, Karim, Eddie'
+
+# Request:
+# GET /add_names?add=Eddie
+# This route should return a list of pre-defined names, plus the name given.
+# Expected response (2OO OK): Julia, Alice, Karim, Eddie
+
+
 
 
 
